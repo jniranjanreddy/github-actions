@@ -1,0 +1,43 @@
+name: Multi-Stage and Multi-Branch Pipeline
+
+on:
+  push:
+    branches:
+      - dev
+      - stage
+      - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and Test
+        run: |
+          # Add your build and test commands here
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          echo "Deploying to Dev"
+
+      - name: Deploy to Stage
+        if: github.ref == 'refs/heads/stage'
+        run: |
+          echo "Deploying to Stage"
+
+      - name: Deploy to Prod
+        if: github.ref == 'refs/heads/prod'
+        run: |
+          echo "Deploying to Prod"
