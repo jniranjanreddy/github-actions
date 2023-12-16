@@ -20,4 +20,11 @@ jobs:
               run: |
                 node -v
                 npm -v
-           
+    dependent-job:
+        runs-on: windows-latest
+        needs: [run-shell-command, parallel-job-macos]
+        steps:
+            - name: Run a one-line script
+              run: Write-OutPut "Hello, world!"
+            - name: Error Step
+              run: doesntexist 
