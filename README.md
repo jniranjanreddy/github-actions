@@ -1,5 +1,5 @@
 ## New github Enterprise.
-
+https://limeii.github.io/2022/11/deploy-on-multiple-environment-with-github-actions/
 1. got to settings and enable allow all actions and reuseable workflows
 2. set development as default repos
 3. In the member provillages set to Write.
