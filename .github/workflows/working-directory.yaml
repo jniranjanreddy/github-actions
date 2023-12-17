@@ -19,7 +19,6 @@ jobs:
                 echo "GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH"
                 echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
                 ls -l $GITHUB_WORKSPACE
-
     display-wd-info:
         runs-on: windows-latest
         steps:
