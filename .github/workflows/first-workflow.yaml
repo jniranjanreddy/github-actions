@@ -27,4 +27,4 @@ jobs:
             - name: Run a one-line script
               run: Write-OutPut "Hello, world!"
             - name: Error Step
-              run: doesntexist 
+              run: ping localhost 
