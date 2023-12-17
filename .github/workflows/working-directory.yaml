@@ -1,6 +1,9 @@
 name: working Dires and shells
 on: [push]
 
+defaults: 
+    run:
+        shell: bash
 jobs: 
     display-wd-info:
         runs-on: ubuntu-latest
@@ -62,6 +65,9 @@ jobs:
                 
     display-windowsd-info:
         runs-on: windows-latest
+        defaults: 
+            run:
+                shell: pwsh
         steps:
             - name: Display working directory
               run: | 
@@ -74,3 +80,20 @@ jobs:
                 Write-OutPut "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
                 Write-OutPut "GITHUB_EVENT_PATH: $GITHUB_EVENT_PATH"
                 Write-OutPut "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+            - name: Pyhon Shell
+              shell: python
+              run: | 
+                import os
+                print(os.getcwd())
+                print(os.listdir())
+                print(os.listdir(os.getcwd()))
+                print(os.listdir(os.environ['GITHUB_WORKSPACE']))
+                print(os.environ['GITHUB_REPOSITORY'])
+                print(os.environ['GITHUB_SHA'])
+                print(os.environ['GITHUB_REF'])
+                print(os.environ['GITHUB_ACTOR'])
+                print(os.environ['GITHUB_WORKFLOW'])
+                print(os.environ['GITHUB_ACTION'])
+                print(os.environ['GITHUB_EVENT_NAME'])
+                print(os.environ['GITHUB_EVENT_PATH'])
+                print(os.environ['GITHUB_WORKSPACE'])
