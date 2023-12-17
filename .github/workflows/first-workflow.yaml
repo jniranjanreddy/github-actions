@@ -18,8 +18,7 @@ jobs:
               run: echo Hello, world!
             - name: Run a multi-line script
               run: |
-                node -v
-                npm -v
+                noode -v
     dependent-job:
         runs-on: windows-latest
         needs: [run-shell-command, parallel-job-macos]
