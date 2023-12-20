@@ -8,5 +8,5 @@ jobs:
             - name: Just prnt variables
               run: |
                 echo ${{ env.GITHUB_ACTOR }}
-                echo ${{ env.USERNAME }}
-                echo ${{ secret.PASSWORD }}
+                echo ${{ vars.USERNAME }}
+                echo ${{ secrets.PASSWORD }}
