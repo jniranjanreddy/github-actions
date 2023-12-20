@@ -1,0 +1,12 @@
+name: Environement variables
+on: [push]
+
+jobs: 
+    env-vars-and-context: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Just prnt variables
+              run: |
+                echo ${{ env.GITHUB_ACTOR }}
+                echo ${{ env.USERNAME }}
+                echo ${{ secret.PASSWORD }}
