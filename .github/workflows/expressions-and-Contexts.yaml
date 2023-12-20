@@ -7,7 +7,7 @@ run-name: "Expressions and Contexts by ${{ github.actor }}, event: ${{ github.ev
 jobs: 
     using-expresssions-and-contexts:
         runs-on: ubuntu-latest
-        run: if github.event_name == 'push'
+        if: github.event_name == 'push'
         steps:
             - name: Expressions
               id: expressions
