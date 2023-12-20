@@ -29,13 +29,5 @@ jobs:
                 echo ${{ toJson(secrets) }}
                 echo ${{ toJson(job.statuses) }}
                 echo ${{ toJson(job.outputs) }}
-                echo ${{ toJson(job.steps) }}
-                
-
-
-                
-                
-            - name: Print GitHub Context
-              env:
-                  GITHUB_CONTEXT: ${{ toJson(github) }}
-              run: echo "$GITHUB_CONTEXT"
+                echo ${{ toJson(job.steps) }}  
+            
