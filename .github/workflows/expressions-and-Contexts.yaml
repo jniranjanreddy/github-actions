@@ -1,0 +1,41 @@
+name: Expressions and Contexts
+on: [push, pull_request, issues, workflow_dispatch]
+
+jobs: 
+    using-expresssions-and-contexts:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Expressions
+              id: expressions
+              run: | 
+                echo ${{ 1 }}
+                echo ${{ 'This is string' }}
+                echo ${{ null }}
+                echo ${{ true }}
+                echo ${{ 1>2 }}
+                echo ${{ 'string'== 'String' }}
+                echo ${{ true && false }}
+                echo ${{ true || (false && true) }}
+
+            - name: Dump Contexts
+              run: | 
+                echo ${{ toJson(github) }}
+                echo ${{ toJson(job) }}
+                echo ${{ toJson(steps) }}
+                echo ${{ toJson(runner) }}
+                echo ${{ toJson(matrix) }}
+                echo ${{ toJson(strategy) }}
+                echo ${{ toJson(inputs) }}
+                echo ${{ toJson(secrets) }}
+                echo ${{ toJson(job.statuses) }}
+                echo ${{ toJson(job.outputs) }}
+                echo ${{ toJson(job.steps) }}
+                
+
+
+                
+                
+            - name: Print GitHub Context
+              env:
+                  GITHUB_CONTEXT: ${{ toJson(github) }}
+              run: echo "$GITHUB_CONTEXT"
