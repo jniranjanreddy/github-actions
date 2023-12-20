@@ -3,9 +3,11 @@ name: Expressions and Contexts
 on: [push]
 run-name: "Expressions and Contexts by ${{ github.actor }}, event: ${{ github.event_name }}"
 
+
 jobs: 
     using-expresssions-and-contexts:
         runs-on: ubuntu-latest
+        run: if github.event_name == 'push'
         steps:
             - name: Expressions
               id: expressions
