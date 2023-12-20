@@ -6,7 +6,10 @@ jobs:
         runs-on: ubuntu-latest
         steps: 
             - name: Just prnt variables
-              run: |
-                echo ${{ env.GITHUB_ACTOR }}
-                echo ${{ vars.USERNAME }}
-                echo ${{ secrets.PASSWORD }}
+                env: 
+                    USERNAME: ${{ vars.USERNAME }}
+                    PASSWORD: ${{ secrets.PASSWORD }}
+                run: |
+                   echo ${{ env.GITHUB_ACTOR }}
+                   echo ${{ vars.USERNAME }}
+                   echo ${{ secrets.PASSWORD }}
