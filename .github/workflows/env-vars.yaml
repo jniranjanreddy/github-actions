@@ -4,12 +4,14 @@ on: [push]
 jobs: 
     env-vars-and-context: 
         runs-on: ubuntu-latest
-        steps: 
-            - name: Just prnt variables
-                env: 
-                    USERNAME: ${{ vars.USERNAME }}
-                    PASSWORD: ${{ secrets.PASSWORD }}
-                run: |
-                   echo ${{ env.GITHUB_ACTOR }}
-                   echo ${{ vars.USERNAME }}
-                   echo ${{ secrets.PASSWORD }}
+        env: 
+            USERNAME: ${{ vars.USERNAME }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+        steps:
+            - name: Echo env vars
+              run: |
+                  echo ${{ vars.USERNAME }}
+                  echo ${{ vars.PASSWORD }}
+                  echo ${{ secrets.PASSWORD }}
+                  echo "USERNAME: $USERNAME"
+                  echo "PASSWORD: $PASSWORD"
