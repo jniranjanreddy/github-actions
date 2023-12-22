@@ -3,14 +3,14 @@ on: [push]
 
 jobs:
     node-matrix:
-        continue-on-error: false
+        continue-on-error: false # default: false, this will continue the build if one of the matrix fails
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
                 node-version: [14, 99, 16]
-            fail-fast: true
+            fail-fast: true  # default: true, this will stop the build if one of the matrix fails
             # max-parallel: 3
-        runs-on: ${{ matrix.os }}
+        runs-on: ${{ matrix.os }} # runs on ubuntu and windows
         steps:
             - run: node -v
             - uses: actions/setup-node@v3
