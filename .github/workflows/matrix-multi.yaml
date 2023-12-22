@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
     node-matrix:
-        continue-on-error: true # default: false, this will continue the build if one of the matrix fails
+        continue-on-error: false # default: false, this will continue the build if one of the matrix fails
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
