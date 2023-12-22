@@ -1,0 +1,6 @@
+- name: Add public IP to Azure Cosmos DB firewall
+    run: |
+        az cosmosdb update \
+            --name <cosmosdb-account-name> \
+            --resource-group <resource-group-name> \
+            --ip-range-filter <public-ip-address>
