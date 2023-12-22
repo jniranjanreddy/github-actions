@@ -1,4 +1,4 @@
-name: matrix
+name: multi-matrix
 on: [push]
 
 jobs:
