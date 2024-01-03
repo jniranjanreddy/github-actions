@@ -17,3 +17,9 @@ https://www.kevinboosten.dev/how-to-use-angular-environment-files-in-your-azure-
 
 ## Static website
 ![image](https://github.com/jniranjanreddy/github-actions/assets/83489863/336c6461-bf95-4b12-b79a-4440743fa025)
+
+## How to access azure within Github actions
+
+
+
+az webapp list --query "[?state=='running']"

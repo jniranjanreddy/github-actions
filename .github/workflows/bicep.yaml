@@ -1,0 +1,13 @@
+name: Bicep Workflow
+on: [workflow-dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - run: |
+        az webapp list --query "[?state=='Running']
