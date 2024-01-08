@@ -18,7 +18,7 @@ https://www.kevinboosten.dev/how-to-use-angular-environment-files-in-your-azure-
 ## Static website
 ![image](https://github.com/jniranjanreddy/github-actions/assets/83489863/336c6461-bf95-4b12-b79a-4440743fa025)
 
-## How to access azure within Github actions
+## How to access azure within Github actions..
 ```
 1. create a service principal, which will generaete a json, then create a secret.
    PS C:\> az ad sp create-for-rbac --name githubactions  --role contributor --scopes /subscriptions/xxxxxxxxxxxxxxxxxxx --sdk-auth
