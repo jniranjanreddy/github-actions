@@ -1,0 +1,53 @@
+name: SonarQube Code Scanning
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v1
+        with:
+          projectKey: ${{ github.repository }}
+          projectName: ${{ github.repository }}
+          organization: your-organization
+          token: ${{ secrets.SONARQUBE_TOKEN }}
+          scannerArgs: -Dsonar.qualitygate.wait=true
+
+      - name: Upload SonarQube Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: sonarqube-report
+          path: target/sonar
+
+      - name: Generate Vulnerability Report
+        run: |
+          mkdir -p reports
+          sonar-scanner -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=your-organization -Dsonar.projectKey=${{ github.repository }} -Dsonar.projectName=${{ github.repository }} -Dsonar.qualitygate.wait=true -Dsonar.report.export.path=reports/sonarqube-report.json
+        env:
+          SONARQUBE_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+
+      - name: Upload Vulnerability Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: vulnerability-report
+          path: reports/sonarqube-report.json
