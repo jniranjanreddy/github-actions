@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         repo: [
-          'jniranjanreddy/ipad.git',
-          'jniranjanreddy/laptop.git',
-          'jniranjanreddy/desktop.git'          
+          'jniranjanreddy/ipad',
+          'jniranjanreddy/laptop',
+          'jniranjanreddy/desktop'          
         ]
     
     steps:
