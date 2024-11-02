@@ -2,10 +2,9 @@ name: One Click
 on: 
   workflow_dispatch:
      inputs:
-        options:
-           description: 'Select options'
-           required: true
+        selected_options:
            type: choice
+           description: select multile options
            options:
              - Option 1
              - Option 2
