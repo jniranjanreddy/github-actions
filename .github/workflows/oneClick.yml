@@ -1,0 +1,19 @@
+name: One Click Deploment
+on: 
+  workflow_dispatch:
+     inputs:
+         options:
+                description: 'Select options'
+                required: true
+                type: choice
+                options:
+                    - Option 1
+                    - Option 2
+                    - Option 3
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print selected options
+                run: echo "Selected options: ${{ github.event.inputs.options }}"
