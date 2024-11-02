@@ -6,10 +6,10 @@ on:
            type: choice
            description: select multile options
            options:
-             - Option 1
-             - Option 2
-             - Option 3
-           multiple: true
+           - Option 1
+           - Option 2
+           - Option 3
+        multiple: true
           
 
 jobs: 
