@@ -1,18 +1,20 @@
-name: Docker Image CI
+name: Manual Workflow with Checklist
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    workflow_dispatch:
+        inputs:
+            options:
+                description: 'Select options'
+                required: true
+                type: choice
+                options:
+                    - Option 1
+                    - Option 2
+                    - Option 3
 
 jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print selected options
+                run: echo "Selected options: ${{ github.event.inputs.options }}"
