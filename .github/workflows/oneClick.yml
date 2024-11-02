@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
      inputs:
         tag_name:
-        description: 'Tag name to apply'
-        required: true
-        default: 'v1.0.0'
+          description: 'Tag name to apply'
+          required: true
+          default: 'v1.0.0'
 
 jobs:
   pull_and_tag:
