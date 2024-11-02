@@ -1,17 +1,16 @@
-name: One Click Deploment
+name: One Click
 on: 
   workflow_dispatch:
      inputs:
-            subject:
-                description: 'Select a subject'
-                required: true
-                default: 'english'
-                type: choice
-                options:
-                    - english
-                    - science
-                    - social
-                    - maths
+        options:
+           description: 'Select options'
+           required: true
+           type: choice
+           options:
+             - Option 1
+             - Option 2
+             - Option 3
+          
 
 jobs: 
   build:
