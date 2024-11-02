@@ -1,4 +1,4 @@
-name: One Click Deploment- backupfile
+name: One Click Deploment
 on: 
   workflow_dispatch:
      inputs:
