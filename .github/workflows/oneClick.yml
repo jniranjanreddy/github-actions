@@ -13,16 +13,9 @@ jobs:
     strategy:
       matrix:
         repo: [
-          'owner/repo1',
-          'owner/repo2',
-          'owner/repo3',
-          'owner/repo4',
-          'owner/repo5',
-          'owner/repo6',
-          'owner/repo7',
-          'owner/repo8',
-          'owner/repo9',
-          'owner/repo10'
+          'https://github.com/jniranjanreddy/ipad.git',
+          'https://github.com/jniranjanreddy/laptop.git',
+          'https://github.com/jniranjanreddy/desktop.git'          
         ]
     
     steps:
