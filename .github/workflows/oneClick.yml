@@ -6,6 +6,10 @@ on:
           description: 'Tag name to apply'
           required: true
           default: 'v1.0.0'
+env: 
+  registry: jnrdev.azurecr.io
+  TAG: ${{ github.event.inputs.tag_name }}
+  
 
 jobs:
   pull_and_tag:
@@ -62,7 +66,7 @@ jobs:
 
             echo "Repo Name: ${repo_name}"
             echo "Tag Name: ${{ github.event.inputs.tag_name }}"
-            echo "Registry = ${Registry}
+            echo "Registry = ${Registry}"
 
             # Move into the repository directory
             cd "$repo_name"
