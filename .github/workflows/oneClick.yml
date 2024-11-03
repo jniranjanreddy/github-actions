@@ -69,9 +69,9 @@ jobs:
 
             # Build the Docker image
            
-            docker build -t "$repo_name:${{ github.event.inputs.tag_name }}" .
+            docker build -t "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}" .
             docker images
-            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "$Registry/$repo_name:$TAG"
+            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}""
 
             # Go back to the main directory
             cd ..
