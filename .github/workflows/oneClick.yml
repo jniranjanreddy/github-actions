@@ -62,13 +62,14 @@ jobs:
             repo_name=$(basename -s .git "$repo")
 
             # Move into the repository directory
+
             cd "$repo_name"
 
             # Build the Docker image
             docker build -t "${{ secrets.DOCKER_USERNAME }}/$repo_name:$TAG" .
 
             # Push the Docker image to Docker Hub
-            docker push "${{ secrets.DOCKER_USERNAME }}/$repo_name:$TAG"
+            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K jnrdev.azurecr.io && docker push "${{ secrets.DOCKER_USERNAME }}/$repo_name:$TAG"
 
             # Go back to the main directory
             cd ..
