@@ -35,5 +35,16 @@ jobs:
       run: |
         git tag ${{ github.event.inputs.tag_name }}
         git push origin ${{ github.event.inputs.tag_name }}
-
+  
+jobs:
+  Build_docker_image:
+  runs-on: ubuntu-latest
+  needs: pull_and_tag
+  steps:
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        registry: jnrdev.azurecr.io
+        username: ${{ secrets.DOCKER_USERNAME }}    # Add your Docker username to GitHub secrets
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
