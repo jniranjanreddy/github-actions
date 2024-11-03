@@ -44,9 +44,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Clone, Build, and Push Docker Images
-        env:
-          TAG: ${{ github.event.inputs.tag_name }}
-        run: |
+      ENV:
+        TAG: ${{ github.event.inputs.tag_name }}
+      run: |
           # List of GitHub repositories to clone and build
           repos=(
             "https://github.com/jniranjanreddy/laptop.git"
