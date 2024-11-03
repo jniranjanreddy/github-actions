@@ -58,26 +58,25 @@ jobs:
           )
            Registry = jnrdev.azurecr.io
           for repo in "${repos[@]}"
-          do
-            # Clone the repository
-            git clone "$repo"
-            repo_name=$(basename -s .git "$repo")
+             do
+                # Clone the repository
+                git clone "$repo"
+                repo_name=$(basename -s .git "$repo")
 
+              echo "Repo Name: ${repo_name}"
+              echo "Tag Name: ${{ github.event.inputs.tag_name }}"
+              echo "Registry = ${Registry}"
 
-            echo "Repo Name: ${repo_name}"
-            echo "Tag Name: ${{ github.event.inputs.tag_name }}"
-            echo "Registry = ${Registry}"
+             # Move into the repository directory
+             cd "$repo_name"
 
-            # Move into the repository directory
-            cd "$repo_name"
-
-            # Build the Docker image
+             # Build the Docker image
            
-            docker build -t "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}" .
-            docker images
-            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}""
+             docker build -t "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}" .
+             docker images
+             docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "${Registry}/$repo_name:${{ github.event.inputs.tag_name }}""
 
-            # Go back to the main directory
-            cd ..
-            rm -rf "$repo_name"  # Clean up after each build
+             # Go back to the main directory
+             cd ..
+             rm -rf "$repo_name"  # Clean up after each build
           done
