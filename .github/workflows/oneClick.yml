@@ -44,10 +44,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Clone, Build, and Push Docker Images
-      env:
-        TAG: ${{ github.event.inputs.tag_name }}
       run: |
           # List of GitHub repositories to clone and build
+          TAG = ${{ github.event.inputs.tag_name }}
           repos=(
             "https://github.com/jniranjanreddy/laptop.git"
             "https://github.com/jniranjanreddy/ipad.git"
@@ -66,14 +65,16 @@ jobs:
             cd "$repo_name"
 
             # Build the Docker image
-            echo ${{ github.event.inputs.tag_name }}
+            echo "Repo Name: $repo_name"
+            echo "Tag Name: ${{ github.event.inputs.tag_name }}"
+            Registry = jnrdev.azurecr.io
             docker build -t "$repo_name:${{ github.event.inputs.tag_name }}" .
             
 
             # Push the Docker image to Docker Hub
             #docker login -u myusername -p mypassword docker.io && docker push docker.io/myusername/myimage:latest
             docker images
-            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K jnrdev.azurecr.io && docker push jnrdev.azurecr.io/"$repo_name:v4.0.0"
+            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "$Registry/$repo_name:$TAG"
 
             # Go back to the main directory
             cd ..
