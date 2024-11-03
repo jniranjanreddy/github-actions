@@ -66,11 +66,14 @@ jobs:
             cd "$repo_name"
 
             # Build the Docker image
-            docker build -t "$repo_name:$TAG" .
+            echo ${{ github.event.inputs.tag_name }}
+            docker build -t "$repo_name:${{ github.event.inputs.tag_name }}" .
+            
 
             # Push the Docker image to Docker Hub
             #docker login -u myusername -p mypassword docker.io && docker push docker.io/myusername/myimage:latest
-            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K jnrdev.azurecr.io && docker push jnrdev.azurecr.io/"$repo_name:$TAG"
+            docker images
+            docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K jnrdev.azurecr.io && docker push jnrdev.azurecr.io/"$repo_name:${{ github.event.inputs.tag_name }}"
 
             # Go back to the main directory
             cd ..
