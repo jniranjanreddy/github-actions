@@ -46,33 +46,30 @@ jobs:
     - name: Clone, Build, and Push Docker Images
       run: |
           # List of GitHub repositories to clone and build
-          TAG = ${{ github.event.inputs.tag_name }}
           repos=(
             "https://github.com/jniranjanreddy/laptop.git"
             "https://github.com/jniranjanreddy/ipad.git"
             "https://github.comjniranjanreddy/desktop.git"
             # Add up to 10 repos as needed
           )
-
+           Registry = jnrdev.azurecr.io
           for repo in "${repos[@]}"
           do
             # Clone the repository
             git clone "$repo"
             repo_name=$(basename -s .git "$repo")
 
-            # Move into the repository directory
 
+            echo "Repo Name: ${repo_name}"
+            echo "Tag Name: ${{ github.event.inputs.tag_name }}"
+            echo "Registry = ${Registry}
+
+            # Move into the repository directory
             cd "$repo_name"
 
             # Build the Docker image
-            echo "Repo Name: $repo_name"
-            echo "Tag Name: ${{ github.event.inputs.tag_name }}"
-            Registry = jnrdev.azurecr.io
+           
             docker build -t "$repo_name:${{ github.event.inputs.tag_name }}" .
-            
-
-            # Push the Docker image to Docker Hub
-            #docker login -u myusername -p mypassword docker.io && docker push docker.io/myusername/myimage:latest
             docker images
             docker login -u jnrdev -p 5895MuJ0CtZzIQ+uJ2Tkqp+Z0iIXS4ZhJPhCngeiBu+ACRCF939K $Registry && docker push "$Registry/$repo_name:$TAG"
 
