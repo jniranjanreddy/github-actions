@@ -42,16 +42,16 @@ jobs:
         registry: jnrdev.azurecr.io
         username: ${{ secrets.DOCKER_USERNAME }}    # Add your Docker username to GitHub secrets
         password: ${{ secrets.DOCKER_PASSWORD }}
-        
+
     - name: Clone, Build, and Push Docker Images
         env:
-          TAG: "latest"  # Define a default tag for your Docker images
+          TAG: ${{ github.event.inputs.tag_name }}
         run: |
           # List of GitHub repositories to clone and build
           repos=(
-            "https://github.com/user/repo1.git"
-            "https://github.com/user/repo2.git"
-            "https://github.com/user/repo3.git"
+            "https://github.com/jniranjanreddy/laptop.git"
+            "https://github.com/jniranjanreddy/ipad.git"
+            "https://github.comjniranjanreddy/desktop.git"
             # Add up to 10 repos as needed
           )
 
@@ -74,4 +74,3 @@ jobs:
             cd ..
             rm -rf "$repo_name"  # Clean up after each build
           done
-
