@@ -36,47 +36,4 @@ jobs:
         git tag ${{ github.event.inputs.tag_name }}
         git push origin ${{ github.event.inputs.tag_name }}
 
-jobs:
-  Build_docker_image:
-  runs-on: ubuntu-latest
-  needs: pull_and_tag
-  steps:
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        registry: jnrdev.azurecr.io
-        username: ${{ secrets.DOCKER_USERNAME }}    # Add your Docker username to GitHub secrets
-        password: ${{ secrets.DOCKER_PASSWORD }}
-    
-    - name: docker build and push
-      ENV:
-        TAG: ${{ github.event.inputs.tag_name }}
-      run: | 
-            echo $TAG
-            repos=(
-            "https://github.com/jniranjanreddy/ipad.git"
-            "https://github.com/jniranjanreddy/laptop.git"
-            "https://github.com/jniranjanreddy/desktop.git"
-            # Add up to 10 repos as needed
-            )
 
-            for repo in "${repos[@]}"
-              do
-             # Clone the repository
-            git clone "$repo"
-            repo_name=$(basename -s .git "$repo")
-
-            # Move into the repository directory
-            cd "$repo_name"
-
-            # Build the Docker image
-            docker build -t "${{ secrets.DOCKER_USERNAME }}/$repo_name:" .
-
-            # Push the Docker image to Docker Hub
-            docker push "${{ secrets.DOCKER_USERNAME }}/$repo_name:$TAG"
-
-            # Go back to the main directory
-            cd ..
-            rm -rf "$repo_name"  # Clean up after each build
-          done
-  
