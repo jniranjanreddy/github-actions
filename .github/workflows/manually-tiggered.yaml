@@ -1,10 +1,23 @@
-name: manually triggered
+name: One Click version and Tag
+
 on:
   workflow_dispatch:
-    
-
-jobs: 
-    log-info: 
-        runs-on: ubuntu-latest
-        steps: 
-            - run: echo "This is a manually triggered workflow"
+    inputs:
+      repository:
+        description: 'Select repository'
+        type: choice
+        options:
+          - laptop
+          - desktop
+          - ipad
+        required: true
+      source_branch:
+          description: 'Select Source Branch'
+          required: true
+      version_type:
+        description: 'Select Version Type'
+        type: choice
+        options:
+          - Major/Release
+          - Minor/Release
+          - Patch/Hotfix
