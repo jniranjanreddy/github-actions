@@ -8,6 +8,7 @@ https://www.kevinboosten.dev/how-to-use-angular-environment-files-in-your-azure-
 3. In the member provillages set to Write.
 4. 
 
+![image](https://github.com/user-attachments/assets/f4eb7b54-fd16-4cbd-bcf5-c9933e8a6ea8)
 
 
 ![image](https://github.com/jniranjanreddy/github-actions/assets/83489863/96946a01-3fec-42aa-afe6-9589840df3a0)
