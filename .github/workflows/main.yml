@@ -2,15 +2,20 @@ name: Dependent Workflow
 
 on:
   workflow_run:
-    workflows: ["Manual Trigger Workflow"]  # Name of the first workflow
+    workflows: ["Manual Trigger Workflow"]
     types:
       - completed
 
 jobs:
-  use-outputs:
+  process-artifacts:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Outputs
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: workflow-inputs
+
+      - name: Read inputs from files
         run: |
-          echo "Input 1: ${{ workflow_run.triggering_workflow.outputs.output1 }}"
-          echo "Input 2: ${{ workflow_run.triggering_workflow.outputs.output2 }}"
+          echo "Input 1: $(cat input1.txt)"
+          echo "Input 2: $(cat input2.txt)"
