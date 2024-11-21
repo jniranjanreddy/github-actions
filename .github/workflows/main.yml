@@ -1,0 +1,16 @@
+name: Dependent Workflow
+
+on:
+  workflow_run:
+    workflows: ["Manual Trigger Workflow"]  # Name of the first workflow
+    types:
+      - completed
+
+jobs:
+  use-outputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        run: |
+          echo "Input 1: ${{ workflow_run.triggering_workflow.outputs.output1 }}"
+          echo "Input 2: ${{ workflow_run.triggering_workflow.outputs.output2 }}"
