@@ -13,14 +13,15 @@ on:
         default: "Default Value 2"
 
 jobs:
-  create-outputs:
+  create-artifacts:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.set-output.outputs.output1 }}
-      output2: ${{ steps.set-output.outputs.output2 }}
     steps:
-      - name: Set outputs
-        id: set-output
+      - name: Save inputs to files
         run: |
-          echo "output1=${{ github.event.inputs.input1 }}" >> $GITHUB_OUTPUT
-          echo "output2=${{ github.event.inputs.input2 }}" >> $GITHUB_OUTPUT
+          echo "${{ github.event.inputs.input1 }}" > input1.txt
+          echo "${{ github.event.inputs.input2 }}" > input2.txt
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: workflow-inputs
+          path: "*.txt"
