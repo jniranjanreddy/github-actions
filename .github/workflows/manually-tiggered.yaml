@@ -1,4 +1,4 @@
-name: One Click version and Tag
+name: Tag workflow
 
 on:
   workflow_dispatch:
