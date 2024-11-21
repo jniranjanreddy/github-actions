@@ -1,23 +1,26 @@
-name: Tag workflow
+name: Manual Trigger Workflow
 
 on:
   workflow_dispatch:
     inputs:
-      repository:
-        description: 'Select repository'
-        type: choice
-        options:
-          - laptop
-          - desktop
-          - ipad
+      input1:
+        description: "First input"
         required: true
-      source_branch:
-          description: 'Select Source Branch'
-          required: true
-      version_type:
-        description: 'Select Version Type'
-        type: choice
-        options:
-          - Major/Release
-          - Minor/Release
-          - Patch/Hotfix
+        default: "Default Value 1"
+      input2:
+        description: "Second input"
+        required: true
+        default: "Default Value 2"
+
+jobs:
+  create-outputs:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.set-output.outputs.output1 }}
+      output2: ${{ steps.set-output.outputs.output2 }}
+    steps:
+      - name: Set outputs
+        id: set-output
+        run: |
+          echo "output1=${{ github.event.inputs.input1 }}" >> $GITHUB_OUTPUT
+          echo "output2=${{ github.event.inputs.input2 }}" >> $GITHUB_OUTPUT
