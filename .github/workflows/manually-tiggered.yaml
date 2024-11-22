@@ -25,3 +25,17 @@ jobs:
         with:
           name: workflow-inputs
           path: "*.txt"
+
+jobs:
+  process-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: workflow-inputs
+
+      - name: Read inputs from files
+        run: |
+          echo "Input 1: $(cat input1.txt)"
+          echo "Input 2: $(cat input2.txt)"
