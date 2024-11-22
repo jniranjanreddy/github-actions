@@ -1,11 +1,9 @@
 name: Dependent Workflow
-
 on:
   workflow_run:
     workflows: ["Artifact Sharing Example"]
     types:
       - completed
-
 jobs:
   consume:
     runs-on: ubuntu-latest
@@ -15,6 +13,5 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: shared-files
-
       - name: Read Shared File
         run: cat shared_file.txt
