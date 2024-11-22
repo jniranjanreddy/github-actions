@@ -1,17 +1,19 @@
 name: Dependent Workflow
+
 on:
   workflow_run:
     workflows: ["Artifact Sharing Example"]
     types:
       - completed
+
 jobs:
   consume:
     runs-on: ubuntu-latest
-    needs: build  # Specifies dependency on the 'build' job
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: shared-files
+          name: shared-files  # Matches the name of the artifact in the parent workflow
+
       - name: Read Shared File
         run: cat shared_file.txt
