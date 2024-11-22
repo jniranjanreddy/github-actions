@@ -2,20 +2,19 @@ name: Dependent Workflow
 
 on:
   workflow_run:
-    workflows: ["Manual Trigger Workflow"]
+    workflows: ["Artifact Sharing Example"]
     types:
       - completed
 
 jobs:
-  process-artifacts:
+  consume:
     runs-on: ubuntu-latest
+    needs: build  # Specifies dependency on the 'build' job
     steps:
-      - name: Download artifacts
+      - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
-          name: workflow-inputs
+          name: shared-files
 
-      - name: Read inputs from files
-        run: |
-          echo "Input 1: $(cat input1.txt)"
-          echo "Input 2: $(cat input2.txt)"
+      - name: Read Shared File
+        run: cat shared_file.txt
