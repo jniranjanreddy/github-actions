@@ -18,14 +18,14 @@ jobs:
           name: shared-files
           path: shared_file.txt
 
-  consume:
-    runs-on: ubuntu-latest
-    needs: build  # Specifies dependency on the 'build' job
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: shared-files
+  # consume:
+  #   runs-on: ubuntu-latest
+  #   needs: build  # Specifies dependency on the 'build' job
+  #   steps:
+  #     - name: Download Artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: shared-files
 
-      - name: Read Shared File
-        run: cat shared_file.txt
+  #     - name: Read Shared File
+  #       run: cat shared_file.txt
