@@ -25,11 +25,6 @@ jobs:
         with:
           name: workflow-inputs
           path: "*.txt"
-
-jobs:
-  process-artifacts:
-    runs-on: ubuntu-latest
-    steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
