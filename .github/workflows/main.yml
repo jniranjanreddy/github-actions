@@ -1,19 +1,22 @@
-name: Dependent Workflow
-
+name: Reusable Workflow
 on:
-  workflow_run:
-    workflows: ["Artifact Sharing Example"]
-    types:
-      - completed
+  workflow_call:
+    outputs:
+      date:
+        description: "Date Value"
+        value: ${{ jobs.generate-output.outputs.date }}
 
 jobs:
-  consume:
+  nested-workflow-call:
+    uses: github-actions-course/workflows/.github/workflows/reusable.yaml@main
+    with:
+      name: "Ali"
+    secrets:
+      access-token: ${{ secrets.ACCESS_TOKEN }}
+  generate-output:
     runs-on: ubuntu-latest
+    outputs:
+      date: ${{ steps.date-step.outputs.date }}
     steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: shared-files  # Matches the name of the artifact in the parent workflow
-
-      - name: Read Shared File
-        run: cat shared_file.txt
+      - run: echo "date=$(date)" >> $GITHUB_OUTPUT
+        id: date-step
