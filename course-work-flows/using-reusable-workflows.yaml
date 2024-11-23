@@ -9,7 +9,8 @@ on:
         required: false
 jobs:
   calling-a-reusable-wf:
-    uses: github-actions-course/workflows/.github/workflows/reusable.yaml@main
+    # uses: github-actions-course/workflows/.github/workflows/reusable.yaml@main
+    uses: github.com/jniranjanreddy/github-actions/.github/workflows/vars-and-secrets.yaml
     with:
       name: ${{ inputs.name }}
     secrets:
