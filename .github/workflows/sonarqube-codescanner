@@ -1,0 +1,76 @@
+# This will run the code scanner for the Python code in the repository. The scanner will run on the staging, dev, qa, prod, and release branches. 
+# The scanner will run on the latest version of Ubuntu. The scanner will run on Python 3.11. The scanner will install the dependencies from the requirements.txt file. 
+# The scanner will run the unit tests and upload the coverage reports as artifacts. The scanner will run the SonarCloud scan and exclude the tests, html, and xml files. 
+# The scanner will exclude the tests from the coverage report. The scanner will use the SonarCloud organization and project key. The scanner will use the SonarCloud URL and login token. 
+# The scanner will use the SonarCloud Python coverage report path and the branch name.
+name: SonarCloud Scan for Python home lab
+on:
+    push:
+      branches:
+        - staging
+        - dev
+        - qa
+        - prod
+        - release*
+    workflow_dispatch:
+   
+jobs:
+  sonarcloud-scan-python:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.GIT_WORKFLOWS }} 
+          
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+     
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt    
+      
+      - name: Run Unit Tests and Coverage
+        run: |
+          export APPCONFIGURATION_CONNECTION_STRING=${{ secrets.APPCONFIGURATION_CONNECTION_STRING }}
+          python -m pytest --cov=src --cov-report=xml:coverage.xml --cov-report=html:coverage_html || true
+          
+      - name: Upload Coverage Reports as Artifacts 
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            coverage.xml
+ 
+      - name: SonarCloud Scan for Python
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_PAT_SONAR }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_GIT }}
+        with:
+          args: >
+            -Dsonar.organization=homegrown-apps
+            -Dsonar.projectKey=homegrown-apps
+            -Dsonar.exclusions=**/tests/**,**/*.html,**/*.xml
+            -Dsonar.coverage.exclusions=**/tests/**
+            -Dsonar.sources=. 
+            -Dsonar.host.url=https://sonarcloud.io 
+            -Dsonar.login=${{ secrets.SONAR_TOKEN_GIT }} 
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.branch.name=${{ github.ref_name }}
