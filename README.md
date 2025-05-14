@@ -42,3 +42,76 @@ https://www.kevinboosten.dev/how-to-use-angular-environment-files-in-your-azure-
 ```
 
 az webapp list --query "[?state=='running']"
+
+## How to configure self hosted runner.
+```
+🧷 Step-by-Step Setup
+✅ Step 1: Go to Your Repository
+Navigate to the repository on GitHub.
+
+Click on Settings > Actions > Runners.
+
+Click "New self-hosted runner".
+
+✅ Step 2: Choose OS and Architecture
+Select:
+
+OS: Windows / Linux / macOS
+
+Architecture: x64, ARM64, etc.
+
+GitHub will show you specific commands based on your OS.
+
+✅ Step 3: Download and Configure the Runner
+Example for Linux x64:
+
+bash
+Copy
+Edit
+# Create a directory
+mkdir actions-runner && cd actions-runner
+
+# Download the latest runner
+curl -o actions-runner-linux-x64-2.317.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.317.0/actions-runner-linux-x64-2.317.0.tar.gz
+
+# Extract the runner
+tar xzf ./actions-runner-linux-x64-2.317.0.tar.gz
+
+# Configure the runner (replace token and URL from GitHub setup instructions)
+./config.sh --url https://github.com/your-org/your-repo --token YOUR_GENERATED_TOKEN
+You will be prompted to:
+
+Give the runner a name.
+
+Choose a work folder.
+
+Decide whether it should run as a service.
+
+✅ Step 4: Start the Runner
+bash
+Copy
+Edit
+./run.sh
+To run as a service (recommended for CI/CD), install it:
+
+bash
+Copy
+Edit
+sudo ./svc.sh install
+sudo ./svc.sh start
+On Windows, use config.cmd, run.cmd, and svc install accordingly.
+
+🧪 Step 5: Test Your Runner
+Add the following to your .github/workflows/ci.yml:
+
+yaml
+Copy
+Edit
+runs-on: self-hosted
+You can also add labels during configuration and use them:
+
+yaml
+Copy
+Edit
+runs-on: [self-hosted, linux, my-label]
+```
