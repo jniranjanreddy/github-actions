@@ -1,0 +1,11 @@
+name: Simple Self-Hosted Runner Workflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print Hello
+        run: echo "Hello from self-hosted runner!"
