@@ -1,5 +1,9 @@
 name: working Dires and shells
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 defaults: 
     run:
