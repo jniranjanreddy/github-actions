@@ -3,11 +3,12 @@ name: Simple Self-Hosted Runner Workflow
 on:
   push:
     branches:
-      - main
+      - release-*
   workflow_dispatch:
 
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || github.ref_name == vars.ACTIVE_RELEASE
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
