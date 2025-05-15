@@ -1,4 +1,4 @@
-name: working Dires and shells
+name: Runner Variables
 on:
   push:
     branches:
