@@ -1,15 +1,16 @@
-name: Environment Example
-on: [push]
+name: Workflow with Inputs
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_this:
+        description: "Run this job?"
+        required: true
+        default: "no"
 
 jobs:
-  print-env:
+  conditional-job:
+    if: inputs.run_this == 'yes'
     runs-on: ubuntu-latest
-    env:
-      GLOBAL_VAR: "This is global"
     steps:
-      - name: Print Env Vars
-        run: |
-          echo "GLOBAL_VAR: $GLOBAL_VAR"
-          echo "MY_VAR: $MY_VAR"
-        env:
-          MY_VAR: "This is a step-level var"
+      - run: echo "✅ You chose to run this job!"
