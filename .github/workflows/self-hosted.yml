@@ -1,16 +1,15 @@
-name: Simple Self-Hosted Runner Workflow
-
-on:
-  push:
-    branches:
-      - release-*
-  workflow_dispatch:
+name: Environment Example
+on: [push]
 
 jobs:
-  build:
-    if: github.event_name == 'workflow_dispatch' || github.ref_name == vars.ACTIVE_RELEASE
-    runs-on: self-hosted
+  print-env:
+    runs-on: ubuntu-latest
+    env:
+      GLOBAL_VAR: "This is global"
     steps:
-      - uses: actions/checkout@v4
-      - name: Print Hello
-        run: echo "Hello from self-hosted runner!"
+      - name: Print Env Vars
+        run: |
+          echo "GLOBAL_VAR: $GLOBAL_VAR"
+          echo "MY_VAR: $MY_VAR"
+        env:
+          MY_VAR: "This is a step-level var"
