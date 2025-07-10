@@ -1,16 +1,33 @@
-name: Workflow with Inputs
+name: Milvus DB Backup & Restore
 
 on:
   workflow_dispatch:
     inputs:
-      run_this:
-        description: "Run this job?"
+      action:
+        description: 'Select action to perform'
         required: true
-        default: "no"
-
-jobs:
-  conditional-job:
-    if: inputs.run_this == 'yes'
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "✅ You chose to run this job!"
+        default: 'backup'
+        type: choice
+        options:
+          - backup
+          - restore
+      dev:
+        description: 'Restore QA environment?'
+        required: true
+        default: 'true'
+        type: boolean
+      qa:
+        description: 'Restore QA Demo environment?'
+        required: true
+        default: 'true'
+        type: boolean
+      uat:
+        description: 'Restore Staging environment?'
+        required: true
+        default: 'true'
+        type: boolean
+      stage:
+        description: 'Restore Production environment?'
+        required: true
+        default: 'true'
+        type: boolean
