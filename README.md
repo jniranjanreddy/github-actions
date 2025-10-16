@@ -115,3 +115,7 @@ Copy
 Edit
 runs-on: [self-hosted, linux, my-label]
 ```
+## How to run github actions locally, without github
+```
+act 
+```
