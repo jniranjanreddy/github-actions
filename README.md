@@ -117,5 +117,6 @@ runs-on: [self-hosted, linux, my-label]
 ```
 ## How to run github actions locally, without github
 ```
-act 
+see act_github_actions_locally file
+
 ```
