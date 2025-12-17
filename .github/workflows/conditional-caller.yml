@@ -1,0 +1,41 @@
+# File: .github/workflows/conditional-caller.yml
+name: Conditional Deployment
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_to_prod:
+        description: 'Deploy to production?'
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  deploy-dev:
+    uses: ./.github/workflows/env-deploy.yml
+    with:
+      env_name: "dev"
+  
+  deploy-qa:
+    needs: deploy-dev
+    uses: ./.github/workflows/env-deploy.yml
+    with:
+      env_name: "qa"
+  
+  deploy-prod:
+    needs: deploy-qa
+    if: ${{ inputs.deploy_to_prod }}
+    uses: ./.github/workflows/env-deploy.yml
+    with:
+      env_name: "prod"
+  
+  summary:
+    needs: [deploy-dev, deploy-qa, deploy-prod]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deployment summary
+      run: |
+        echo "## Deployment Results" >> $GITHUB_STEP_SUMMARY
+        echo "- Dev: ${{ needs.deploy-dev.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- QA: ${{ needs.deploy-qa.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Prod: ${{ needs.deploy-prod.result || 'Skipped' }}" >> $GITHUB_STEP_SUMMARY
