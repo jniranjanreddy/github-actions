@@ -1,0 +1,25 @@
+name: Simple Caller Workflow
+on: [workflow_dispatch]
+
+jobs:
+  call-dev:
+    uses: ./.github/workflows/simple-called.yml
+    with:
+      message: "Hello World"
+      environment: "dev"
+  
+  call-prod:
+    needs: call-dev
+    uses: ./.github/workflows/simple-called.yml
+    with:
+      message: "Hello Production"
+      environment: "prod"
+  
+  summary:
+    needs: [call-dev, call-prod]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Show results
+      run: |
+        echo "Dev result: ${{ needs.call-dev.outputs.result }}"
+        echo "Prod result: ${{ needs.call-prod.outputs.result }}"
