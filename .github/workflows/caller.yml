@@ -1,0 +1,26 @@
+name: Simple Called Workflow
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+    outputs:
+      result:
+        value: ${{ jobs.test.outputs.result }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.work.outputs.result }}
+    steps:
+    - name: Do work
+      id: work
+      run: |
+        echo "🔄 Processing: ${{ inputs.message }} for ${{ inputs.environment }}"
+        sleep 3
+        echo "result=Success in ${{ inputs.environment }}" >> $GITHUB_OUTPUT
