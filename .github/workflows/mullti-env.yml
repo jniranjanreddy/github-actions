@@ -1,0 +1,21 @@
+# File: .github/workflows/multi-env-caller.yml
+name: Multi Environment Caller
+on: [workflow_dispatch]
+
+jobs:
+  deploy-dev:
+    uses: ./.github/workflows/dev-deploy.yml
+    with:
+      env_name: "dev"
+  
+  deploy-qa:
+    needs: deploy-dev
+    uses: ./.github/workflows/qa-deploy.yml
+    with:
+      env_name: "qa"
+  
+  deploy-prod:
+    needs: deploy-qa
+    uses: ./.github/workflows/prod-deploy.yml
+    with:
+      env_name: "prod"
