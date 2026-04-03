@@ -1,4 +1,4 @@
-name: Self Hosted Example
+name: Test Runner
 
 on:
   push:
@@ -6,17 +6,14 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu24
+  test:
+    runs-on: [self-hosted, Linux]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Test message
+        run: echo "✅ Self-hosted runner is working!"
 
-      - name: Run a simple command
-        run: echo "Hello from self-hosted runner!"
-
-      - name: Show system info
+      - name: System info
         run: |
-          uname -a
-          whoami
+          echo "User: $(whoami)"
+          echo "Machine: $(hostname)"
