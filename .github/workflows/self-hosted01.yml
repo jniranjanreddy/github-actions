@@ -12,9 +12,9 @@ jobs:
     steps:
       - name: Setup kubeconfig
         run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+          # mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > config
+          chmod 600 config
 
       - name: Test cluster
-        run: kubectl get pods -A
+        run: kubectl --kubeconfig config get pods -A
