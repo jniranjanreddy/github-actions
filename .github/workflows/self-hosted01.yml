@@ -1,11 +1,9 @@
-name: Test Runner
-
+name: Test hosted Runner.
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-
 jobs:
   test:
     runs-on: [self-hosted, ubuntu24]
@@ -19,3 +17,4 @@ jobs:
           echo "User: $(whoami)"
           echo "Machine: $(hostname)"
           kubectl config get-contexts
+          kubectl get pods -A
