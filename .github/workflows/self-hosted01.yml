@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, ubuntu24]
+    runs-on: [self-hosted, ubuntu2]
 
     steps:
       - name: Test message
