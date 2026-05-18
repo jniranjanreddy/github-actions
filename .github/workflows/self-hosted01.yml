@@ -6,7 +6,8 @@ on:
       - main
 jobs:
   test:
-    runs-on: [self-hosted, ubuntu24]
+    # runs-on: [self-hosted, ubuntu24] # self hosted runner in WSl
+    runs-on: ubuntu-latest
     steps:
       - name: Test message
         run: echo "✅ Self-hosted runner is working!"
