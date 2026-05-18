@@ -18,3 +18,4 @@ jobs:
         run: |
           echo "User: $(whoami)"
           echo "Machine: $(hostname)"
+          hostname
