@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Setup kubeconfig
         run: |
-          # mkdir -p $HOME/.kube
           echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > config
           chmod 600 config
 
