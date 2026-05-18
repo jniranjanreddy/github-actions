@@ -17,4 +17,4 @@ jobs:
           echo "User: $(whoami)"
           echo "Machine: $(hostname)"
           kubectl config get-contexts
-          kubectl get pods -A
+          sudo -u devops -i bash -c "kubectl get pods -A"
