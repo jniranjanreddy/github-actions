@@ -7,7 +7,6 @@ on:
 jobs:
   test:
     runs-on: [self-hosted, ubuntu24]
-
     steps:
       - name: Test message
         run: echo "✅ Self-hosted runner is working!"
