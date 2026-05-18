@@ -1,20 +1,18 @@
-name: Test hosted Runner.
+name: kubectl test
+
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+
 jobs:
   test:
-    # runs-on: [self-hosted, ubuntu24] # self hosted runner in WSl
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test message
-        run: echo "✅ Self-hosted runner is working!"
+    runs-on: self-hosted
 
-      - name: System info
+    steps:
+      - name: Setup kubeconfig
         run: |
-          echo "User: $(whoami)"
-          echo "Machine: $(hostname)"
-          kubectl config get-contexts
-          sudo -u devops -i bash -c "kubectl get pods -A"
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Test cluster
+        run: kubectl get pods -A
